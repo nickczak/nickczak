@@ -30,52 +30,94 @@ Building backend services for a tipping platform, including authentication, scan
 
 ## Selected projects
 
-| 📖 QuickQuill | 📊 On The Money |
-| :--- | :--- |
-| **Dictionary & spell checker** | **Personal finance tracker** |
-| C++17 dictionary engine with trie-based autocomplete and spelling suggestions across **~1.28 million words**. | Bank-account connections, transaction tracking, and portfolio projections powered by **10,000 Monte Carlo simulations per request**. |
-| C++ engine → Spring Boot API → Angular | C++ engine → Spring Boot API → React PWA |
-| Synchronized LRU cache · Thread-local SQLite connections · Concurrent lookup tests | Plaid integration · AES-GCM token encryption · Simulation tests |
-| [Explore QuickQuill →](https://github.com/nickczak/QuickQuill-Dictionary-SpellChecker) | [Explore On The Money →](https://github.com/nickczak/OnTheMoney-Finance-Tracker) |
+### 📖 [QuickQuill](https://github.com/nickczak/QuickQuill-Dictionary-SpellChecker)
+**Dictionary & spell checker · ~1.28 million words**
 
-<details>
-<summary><strong>QuickQuill — implementation details</strong></summary>
+A full-stack dictionary application with a C++17 engine for autocomplete and spelling suggestions.
 
-- Implemented trie-based autocomplete and spelling suggestions, with a synchronized LRU cache and thread-local SQLite connections.
-- Connected the native engine to a Spring Boot REST API through Java's Foreign Function & Memory API and a C interface.
-- Added Catch2 tests for the engine and concurrent lookups; built an Angular frontend and Docker deployment.
+![C++17](https://img.shields.io/badge/C++17-00599C?style=flat-square&logo=cplusplus&logoColor=white)
+![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white)
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 
-**C++17 · Java · Spring Boot · SQLite · PostgreSQL · Angular · Docker**
+```text
+Angular frontend → Spring Boot REST API → C++ dictionary engine
+```
 
-</details>
+- **Fast lookups:** trie-based autocomplete, spelling suggestions, and a synchronized LRU cache.
+- **Native integration:** Java's Foreign Function & Memory API and a C interface connect the backend to the engine, with thread-local SQLite connections.
+- **Tested concurrency:** Catch2 coverage for the engine and concurrent lookups.
 
-<details>
-<summary><strong>On The Money — implementation details</strong></summary>
+[Explore the repository →](https://github.com/nickczak/QuickQuill-Dictionary-SpellChecker)
 
-- Integrated a C++ Monte Carlo engine with Spring Boot to run 10,000 simulations per projection request.
-- Connected accounts and synchronized transactions through Plaid, keeping access tokens encrypted in the backend with AES-GCM.
-- Built a React progressive web app backed by PostgreSQL, with Catch2 tests for simulation calculations and edge cases.
+---
 
-**C++17 · Java · Spring Boot · PostgreSQL · React · TypeScript · Docker**
+### 📊 [On The Money](https://github.com/nickczak/OnTheMoney-Finance-Tracker)
+**Personal finance tracker · 10,000 simulations per projection**
 
-</details>
+A finance application combining bank-account connections, transaction tracking, and portfolio growth projections.
+
+![C++17](https://img.shields.io/badge/C++17-00599C?style=flat-square&logo=cplusplus&logoColor=white)
+![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+
+```text
+React PWA → Spring Boot REST API → C++ Monte Carlo engine
+```
+
+- **Portfolio projections:** a C++ Monte Carlo engine runs 10,000 simulations per projection request.
+- **Connected accounts:** Plaid integration synchronizes transactions, with access tokens encrypted in the backend using AES-GCM.
+- **Verified calculations:** Catch2 tests cover simulation calculations and edge cases; PostgreSQL backs the React progressive web app.
+
+[Explore the repository →](https://github.com/nickczak/OnTheMoney-Finance-Tracker)
+
+---
 
 ## Tools I work with
 
-![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
+**Languages**
+
+![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-336791?style=for-the-badge)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=white)
+
+**Backend & data**
+
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![DynamoDB](https://img.shields.io/badge/DynamoDB-4053D6?style=for-the-badge)
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=white)
 
-| Area | Also working with |
-| --- | --- |
-| Languages & data | SQL, JavaScript, SQLite, DynamoDB |
-| Cloud & delivery | AWS Lambda, API Gateway, Cognito, SAM, GitHub Actions |
-| Development & testing | Git, CMake, Valgrind, Catch2, pytest, JUnit |
+**Cloud & delivery**
+
+![AWS Lambda](https://img.shields.io/badge/AWS_Lambda-FF9900?style=for-the-badge)
+![API Gateway](https://img.shields.io/badge/API_Gateway-FF9900?style=for-the-badge)
+![Cognito](https://img.shields.io/badge/Cognito-DD344C?style=for-the-badge)
+![AWS SAM](https://img.shields.io/badge/AWS_SAM-FF9900?style=for-the-badge)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
+
+**Development & testing**
+
+![Linux](https://img.shields.io/badge/Linux-333333?style=for-the-badge&logo=linux&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![CMake](https://img.shields.io/badge/CMake-064F8C?style=for-the-badge&logo=cmake&logoColor=white)
+![Valgrind](https://img.shields.io/badge/Valgrind-6B3FA0?style=for-the-badge)
+![Catch2](https://img.shields.io/badge/Catch2-43802A?style=for-the-badge)
+![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white)
+![JUnit](https://img.shields.io/badge/JUnit-25A162?style=for-the-badge&logo=junit5&logoColor=white)
 
 ---
 
