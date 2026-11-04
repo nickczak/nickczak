@@ -2,6 +2,8 @@
 
 Transparent looping technology badges for the profile README.
 
+The compact GIF is 800 × 272 pixels, with flattened orbits and closer track spacing (previously 800 × 496).
+
 Requires Python 3.10+ and Pillow (`python3 -m pip install Pillow`).
 
 ```sh

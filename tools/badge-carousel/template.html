@@ -7,7 +7,7 @@
 * {box-sizing:border-box} body{margin:0;min-height:100vh;display:grid;place-content:center;background:#070d17;color:#dce7f5;font:16px system-ui} main{width:min(100vw,1000px)} canvas{display:block;width:100%;height:auto;border-radius:20px} footer{display:flex;align-items:center;justify-content:space-between;padding:20px;color:#8eabc7;gap:20px} button{background:#1c2a40;color:#dce7f5;border:1px solid #3a506d;border-radius:8px;padding:10px 20px;cursor:pointer} button:focus-visible{outline:3px solid #2496ed} p{margin:0}
 </style>
 <main>
-<canvas width="1000" height="620" role="img" aria-label="Technology badges orbit in three circular tracks, growing brighter and larger in the foreground."></canvas>
+<canvas width="1000" height="340" role="img" aria-label="Technology badges orbit in three circular tracks, growing brighter and larger in the foreground."></canvas>
 <footer><p>Circular motion · depth scaling · seamless loop</p><button type="button">Pause animation</button></footer>
 </main>
 <script>
@@ -23,14 +23,14 @@ updateButton();
 function draw(time){
  if(previous!==null&&!paused)elapsed+=Math.min(time-previous,100);previous=time;
  const angle=elapsed/1000/seconds*Math.PI*2;
- ctx.fillStyle='#0b1220';ctx.fillRect(0,0,1000,620);
- ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='17px system-ui';ctx.fillStyle='#8eabc7';ctx.fillText('TOOLS IN ORBIT',500,45);
+ ctx.fillStyle='#0b1220';ctx.fillRect(0,0,1000,340);
+ ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='17px system-ui';ctx.fillStyle='#8eabc7';ctx.fillText('TOOLS IN ORBIT',500,22);
  ctx.strokeStyle='#1c2a40';
- for(let track=0;track<3;track++){ctx.beginPath();ctx.ellipse(500,310+(track-1)*130,370,65,0,0,Math.PI*2);ctx.stroke()}
+ for(let track=0;track<3;track++){ctx.beginPath();ctx.ellipse(500,170+(track-1)*75,370,40,0,0,Math.PI*2);ctx.stroke()}
  const items=tools.map(([name,color],i)=>{
   const track=i%3,count=tools.filter((_,j)=>j%3===track).length;
   const theta=angle+Math.floor(i/3)*Math.PI*2/count+track*.38,depth=Math.sin(theta);
-  return {name,color,depth,scale:.67+.32*(depth+1)/2,x:500+370*Math.cos(theta),y:310+(track-1)*130+65*depth};
+  return {name,color,depth,scale:.67+.32*(depth+1)/2,x:500+370*Math.cos(theta),y:170+(track-1)*75+40*depth};
  }).sort((a,b)=>a.depth-b.depth);
  for(const item of items){
   const {name,color,depth,scale,x,y}=item;ctx.font=`${20*scale}px system-ui`;
@@ -39,7 +39,7 @@ function draw(time){
   ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x-w/2,y-h/2,w,h,7*scale);ctx.fill();
   ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.fillStyle='white';ctx.fillText(name,x,y);
  }
- ctx.globalAlpha=1;ctx.font='13px system-ui';ctx.fillStyle='#68829e';ctx.fillText('SYSTEMS  /  BACKEND  /  CLOUD',500,588);
+ ctx.globalAlpha=1;ctx.font='13px system-ui';ctx.fillStyle='#68829e';ctx.fillText('SYSTEMS  /  BACKEND  /  CLOUD',500,322);
  requestAnimationFrame(draw);
 }requestAnimationFrame(draw);
 </script>

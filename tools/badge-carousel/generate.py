@@ -22,7 +22,7 @@ TOOLS = [
     ('JUnit', '#25A162'),
 ]
 ROOT = Path(__file__).resolve().parent
-W, H = 1000, 620
+W, H = 1000, 340
 
 
 def position(index, angle):
@@ -33,7 +33,7 @@ def position(index, angle):
     theta = angle + row * math.tau / count + track * .38
     depth = math.sin(theta)
     scale = .67 + .32 * (depth + 1) / 2
-    return W / 2 + 370 * math.cos(theta), H / 2 + (track - 1) * 130 + 65 * depth, depth, scale
+    return W / 2 + 370 * math.cos(theta), H / 2 + (track - 1) * 75 + 40 * depth, depth, scale
 
 
 def font(size):
@@ -72,10 +72,10 @@ def main():
     count = max(2, round(args.seconds * args.fps))
     # Reserve index 255 for fully transparent pixels. Restore the background
     # after each frame so moving badges do not leave trails.
-    palette = render(0).resize((800, 496), Image.Resampling.NEAREST).convert('RGB').quantize(colors=255)
+    palette = render(0).resize((800, 272), Image.Resampling.NEAREST).convert('RGB').quantize(colors=255)
     indexed = []
     for i in range(count):
-        frame = render(math.tau * i / count).resize((800, 496), Image.Resampling.NEAREST)
+        frame = render(math.tau * i / count).resize((800, 272), Image.Resampling.NEAREST)
         quantized = frame.convert('RGB').quantize(palette=palette, dither=Image.Dither.NONE)
         mask = frame.getchannel('A').point(lambda alpha: 255 if alpha == 0 else 0)
         quantized.paste(255, mask=mask)
