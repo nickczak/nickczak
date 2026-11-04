@@ -16,4 +16,4 @@ Optional settings: `python3 generate.py --seconds 16 --fps 50`.
 
 Outputs: `tools-orbit.gif`, `poster.png`, and an interactive `preview.html` (open in a browser). The preview supports pause/play and reduced motion. The GIF loops continuously. Copy the regenerated GIF to `../../assets/tools-orbit.gif`.
 
-Each badge traverses a circular track, changing size and brightness with depth. Frames reserve a transparent palette entry and clear between frames to prevent trails. No network requests are required.
+Each badge traverses a circular track, changing size with depth. Frames reserve a transparent palette entry and clear between frames to prevent trails. Badge fills and text stay the same color throughout the orbit, using a fixed palette that includes every exact badge color. No network requests are required.

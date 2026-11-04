@@ -51,9 +51,8 @@ def render(angle):
         f = font(round(20 * scale))
         width = d.textlength(name, font=f) + 44 * scale
         height = 44 * scale
-        brightness = .42 + .58 * (depth + 1) / 2
-        rgb = tuple(int(int(color[j:j + 2], 16) * brightness) for j in (1, 3, 5))
-        fg = tuple(int(255 * brightness) for _ in range(3))
+        rgb = tuple(int(color[j:j + 2], 16) for j in (1, 3, 5))
+        fg = (255, 255, 255)
         box = (x - width / 2, y - height / 2, x + width / 2, y + height / 2)
         d.rounded_rectangle(box, radius=round(7 * scale), fill=rgb)
         d.text((x, y), name, font=f, fill=fg, anchor='mm')
@@ -72,7 +71,13 @@ def main():
     count = max(2, round(args.seconds * args.fps))
     # Reserve index 255 for fully transparent pixels. Restore the background
     # after each frame so moving badges do not leave trails.
-    palette = render(0).resize((800, 272), Image.Resampling.NEAREST).convert('RGB').quantize(colors=255)
+    # Include every exact badge color, rather than sampling a single frame.
+    # A fixed palette and fixed fills prevent shade changes during the orbit.
+    colors = [tuple(int(color[j:j + 2], 16) for j in (1, 3, 5)) for _, color in TOOLS]
+    colors += [(255, 255, 255)] + [(v, v, v) for v in range(0, 256, 8)]
+    palette = Image.new('P', (1, 1))
+    entries = [channel for color in colors for channel in color]
+    palette.putpalette(entries + [0] * (768 - len(entries)))
     indexed = []
     for i in range(count):
         frame = render(math.tau * i / count).resize((800, 272), Image.Resampling.NEAREST)

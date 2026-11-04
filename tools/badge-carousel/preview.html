@@ -35,7 +35,7 @@ function draw(time){
  for(const item of items){
   const {name,color,depth,scale,x,y}=item;ctx.font=`${20*scale}px system-ui`;
   const w=ctx.measureText(name).width+44*scale,h=44*scale;
-  ctx.globalAlpha=.42+.58*(depth+1)/2;ctx.shadowColor='#0008';ctx.shadowBlur=10*scale;ctx.shadowOffsetY=4*scale;
+  ctx.globalAlpha=1;ctx.shadowColor='#0008';ctx.shadowBlur=10*scale;ctx.shadowOffsetY=4*scale;
   ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x-w/2,y-h/2,w,h,7*scale);ctx.fill();
   ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.fillStyle='white';ctx.fillText(name,x,y);
  }
