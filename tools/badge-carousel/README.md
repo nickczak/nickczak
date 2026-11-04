@@ -8,7 +8,9 @@ Requires Python 3.10+ and Pillow (`python3 -m pip install Pillow`).
 python3 generate.py
 ```
 
-Optional settings: `python3 generate.py --seconds 16 --fps 15`.
+The default export is 50 fps (20 ms per frame), with an unchanged 16-second orbit. GIF timing uses 10 ms increments, so steady 60 fps is not representable. The browser preview uses display-synced animation.
+
+Optional settings: `python3 generate.py --seconds 16 --fps 50`.
 
 Outputs: `tools-orbit.gif`, `poster.png`, and an interactive `preview.html` (open in a browser). The preview supports pause/play and reduced motion. The GIF loops continuously. Copy the regenerated GIF to `../../assets/tools-orbit.gif`.
 

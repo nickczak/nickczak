@@ -63,19 +63,19 @@ def render(angle):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--seconds', type=float, default=16)
-    parser.add_argument('--fps', type=int, default=15)
+    parser.add_argument('--fps', type=int, default=50)
     args = parser.parse_args()
     if args.seconds <= 0 or not 1 <= args.fps <= 50:
         parser.error('seconds must be positive; fps must be between 1 and 50')
     html = (ROOT / 'template.html').read_text()
     (ROOT / 'preview.html').write_text(html.replace('__TOOLS__', json.dumps(TOOLS)).replace('__SECONDS__', str(args.seconds)))
     count = max(2, round(args.seconds * args.fps))
-    frames = [render(math.tau * i / count) for i in range(count)]
     # Reserve index 255 for fully transparent pixels. Restore the background
     # after each frame so moving badges do not leave trails.
-    palette = frames[0].convert('RGB').quantize(colors=255)
+    palette = render(0).resize((800, 496), Image.Resampling.NEAREST).convert('RGB').quantize(colors=255)
     indexed = []
-    for frame in frames:
+    for i in range(count):
+        frame = render(math.tau * i / count).resize((800, 496), Image.Resampling.NEAREST)
         quantized = frame.convert('RGB').quantize(palette=palette, dither=Image.Dither.NONE)
         mask = frame.getchannel('A').point(lambda alpha: 255 if alpha == 0 else 0)
         quantized.paste(255, mask=mask)
