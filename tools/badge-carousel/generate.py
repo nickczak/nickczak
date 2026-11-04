@@ -23,6 +23,13 @@ TOOLS = [
 ]
 ROOT = Path(__file__).resolve().parent
 W, H = 1000, 340
+SHADES = [.62 + .38 * i / 8 for i in range(9)]
+
+
+def brightness(depth):
+    back = max(0, -depth)
+    fade = back * back * (3 - 2 * back)
+    return SHADES[round((1 - fade) * 8)]
 
 
 def position(index, angle):
@@ -51,8 +58,9 @@ def render(angle):
         f = font(round(20 * scale))
         width = d.textlength(name, font=f) + 44 * scale
         height = 44 * scale
-        rgb = tuple(int(color[j:j + 2], 16) for j in (1, 3, 5))
-        fg = (255, 255, 255)
+        light = brightness(depth)
+        rgb = tuple(round(int(color[j:j + 2], 16) * light) for j in (1, 3, 5))
+        fg = (round(255 * light),) * 3
         box = (x - width / 2, y - height / 2, x + width / 2, y + height / 2)
         d.rounded_rectangle(box, radius=round(7 * scale), fill=rgb)
         d.text((x, y), name, font=f, fill=fg, anchor='mm')
@@ -71,10 +79,13 @@ def main():
     count = max(2, round(args.seconds * args.fps))
     # Reserve index 255 for fully transparent pixels. Restore the background
     # after each frame so moving badges do not leave trails.
-    # Include every exact badge color, rather than sampling a single frame.
-    # A fixed palette and fixed fills prevent shade changes during the orbit.
-    colors = [tuple(int(color[j:j + 2], 16) for j in (1, 3, 5)) for _, color in TOOLS]
-    colors += [(255, 255, 255)] + [(v, v, v) for v in range(0, 256, 8)]
+    # Reserve each badge's complete shade ramp so depth never needs colors
+    # borrowed from a different badge. Foreground colors stay at full brightness.
+    colors = [tuple(round(int(color[j:j + 2], 16) * light) for j in (1, 3, 5))
+              for _, color in TOOLS for light in SHADES]
+    colors += [(round(255 * light),) * 3 for light in SHADES]
+    colors += [(v, v, v) for v in range(0, 256, 16)]
+    assert len(colors) <= 255
     palette = Image.new('P', (1, 1))
     entries = [channel for color in colors for channel in color]
     palette.putpalette(entries + [0] * (768 - len(entries)))
