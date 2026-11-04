@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tools in orbit</title>
+<style>
+* {box-sizing:border-box} body{margin:0;min-height:100vh;display:grid;place-content:center;background:#070d17;color:#dce7f5;font:16px system-ui} main{width:min(100vw,1000px)} canvas{display:block;width:100%;height:auto;border-radius:20px} footer{display:flex;align-items:center;justify-content:space-between;padding:20px;color:#8eabc7;gap:20px} button{background:#1c2a40;color:#dce7f5;border:1px solid #3a506d;border-radius:8px;padding:10px 20px;cursor:pointer} button:focus-visible{outline:3px solid #2496ed} p{margin:0}
+</style>
+<main>
+<canvas width="1000" height="620" role="img" aria-label="Technology badges orbit in three circular tracks, growing brighter and larger in the foreground."></canvas>
+<footer><p>Circular motion · depth scaling · seamless loop</p><button type="button">Pause animation</button></footer>
+</main>
+<script>
+const tools=[["C++", "#00599C"], ["Java", "#ED8B00"], ["Python", "#3776AB"], ["SQL", "#336791"], ["TypeScript", "#3178C6"], ["JavaScript", "#B59B00"], ["Spring Boot", "#50852C"], ["PostgreSQL", "#4169E1"], ["SQLite", "#00758F"], ["DynamoDB", "#4053D6"], ["Angular", "#DD0031"], ["React", "#087E9B"], ["AWS Lambda", "#BD6900"], ["API Gateway", "#B76A00"], ["Cognito", "#DD344C"], ["AWS SAM", "#BD6900"], ["Docker", "#2496ED"], ["GitHub Actions", "#2088FF"], ["Linux", "#7D6900"], ["Git", "#F05032"], ["CMake", "#064F8C"], ["Valgrind", "#6B3FA0"], ["Catch2", "#43802A"], ["pytest", "#0A9EDC"], ["JUnit", "#25A162"]], seconds=16;
+const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+let paused=reduced.matches, elapsed=800, previous=null;
+const button=document.querySelector('button');
+function updateButton(){button.textContent=paused?'Play animation':'Pause animation';button.setAttribute('aria-pressed',String(paused));}
+button.onclick=()=>{paused=!paused;updateButton()};
+reduced.addEventListener('change',event=>{paused=event.matches;updateButton()});
+updateButton();
+function draw(time){
+ if(previous!==null&&!paused)elapsed+=Math.min(time-previous,100);previous=time;
+ const angle=elapsed/1000/seconds*Math.PI*2;
+ ctx.fillStyle='#0b1220';ctx.fillRect(0,0,1000,620);
+ ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='17px system-ui';ctx.fillStyle='#8eabc7';ctx.fillText('TOOLS IN ORBIT',500,45);
+ ctx.strokeStyle='#1c2a40';
+ for(let track=0;track<3;track++){ctx.beginPath();ctx.ellipse(500,310+(track-1)*130,370,65,0,0,Math.PI*2);ctx.stroke()}
+ const items=tools.map(([name,color],i)=>{
+  const track=i%3,count=tools.filter((_,j)=>j%3===track).length;
+  const theta=angle+Math.floor(i/3)*Math.PI*2/count+track*.38,depth=Math.sin(theta);
+  return {name,color,depth,scale:.67+.32*(depth+1)/2,x:500+370*Math.cos(theta),y:310+(track-1)*130+65*depth};
+ }).sort((a,b)=>a.depth-b.depth);
+ for(const item of items){
+  const {name,color,depth,scale,x,y}=item;ctx.font=`${20*scale}px system-ui`;
+  const w=ctx.measureText(name).width+44*scale,h=44*scale;
+  ctx.globalAlpha=.42+.58*(depth+1)/2;ctx.shadowColor='#0008';ctx.shadowBlur=10*scale;ctx.shadowOffsetY=4*scale;
+  ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x-w/2,y-h/2,w,h,7*scale);ctx.fill();
+  ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.fillStyle='white';ctx.fillText(name,x,y);
+ }
+ ctx.globalAlpha=1;ctx.font='13px system-ui';ctx.fillStyle='#68829e';ctx.fillText('SYSTEMS  /  BACKEND  /  CLOUD',500,588);
+ requestAnimationFrame(draw);
+}requestAnimationFrame(draw);
+</script>
+</html>
